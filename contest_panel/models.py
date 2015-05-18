@@ -8,6 +8,8 @@ class ContestPanel(models.Model):
     ContestImage = models.FileField('contest_image', upload_to='images/contest', blank=True, null=True)
     Active = models.BooleanField(default=False)
     NumberOfPhotos = models.IntegerField(default=0)
+    PageID = models.CharField(max_length=24, null=True, blank=True)
+    AlbumID = models.CharField(max_length=24, null=True, blank=True)
     DateAdded = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __unicode__(self):
@@ -24,6 +26,7 @@ class ContestImage(models.Model):
     InstituteOfTheContestant = models.CharField(max_length=64, blank=True, null=True)
     PhotoOfTheContestant = models.FileField('contestant_image', upload_to='images/contestant', blank=True, null=True)
     CaptionOfThePhoto = models.TextField()
+    Published = models.BooleanField(default=False)
     DateAdded = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __unicode__(self):

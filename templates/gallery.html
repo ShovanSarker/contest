@@ -127,22 +127,63 @@
 
 
 </script>
-<button type="submit" class="btn btn-primary block full-width m-b" onclick="uploadToAlbum()">Ud</button>
-<div class="row">
-    <form action="/upload_photo/" method="post">{% csrf_token %}
-        {% for image in all_images %}
-        <div class="col-md-3 col-lg-3">
-            <input type="checkbox" name="Pic{{image.id}}" value="{{image.id}}">
-            <a href="/media/{{image.PhotoOfTheContestant}}" target="_blank" class="thumbnail">
-                <p><h3>{{image.NameOfTheContestant}}</h3><br>{{image.CaptionOfThePhoto}}</p>
-                <img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" width="304" height="236">
-            </a>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Pictures not uploaded yet</h3>
+    </div>
+    <div class="panel-body">
+        <form action="/upload_photo/" method="post">{% csrf_token %}
+            <div class="row">
+                {% for image in all_images %} {%if image.Published%}
+                {% else %}
+                <!--<div class="row">-->
+                <div class="col-md-3 col-lg-3 col-sm-6">
+
+                    <a href="/media/{{image.PhotoOfTheContestant}}" target="_blank" class="thumbnail">
+                        <p><h3>{{image.NameOfTheContestant}}</h3><br>{{image.CaptionOfThePhoto}}</p>
+                        <img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" width="304" height="236">
+                        <input type="checkbox" name="Pic{{image.id}}" value="{{image.id}}">
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row">
+                <input type="text" name="uid" hidden="" id="uid">
+                <input type="text" name="auth" hidden="" id="auth">
+                <input type="text" name="cid" hidden="" value="{{contest_id}}">
+                <!--</div>-->
+                <!--<div class="row">-->
+                <br>
+                <fb:login-button size="medium"  scope="public_profile,email, publish_actions, user_photos, manage_pages, publish_pages " onlogin="checkLoginState();">click here to get information from Facebook</fb:login-button>
+                <button type="submit" class="btn btn-primary block full-width m-b">Upload to Facebook</button>
+            </div>
+            <!--</div>-->
+        </form>
+    </div>
+</div>
+
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Photos Already Uploaded</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            {% for image in all_images %}
+            {%if image.Published%}
+            <div class="col-md-3 col-lg-3 col-sm-6">
+                <a href="/media/{{image.PhotoOfTheContestant}}" target="_blank" class="thumbnail">
+                    <p><h3>{{image.NameOfTheContestant}}</h3><br>{{image.CaptionOfThePhoto}}</p>
+                    <img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" width="304" height="236">
+                </a>
+            </div>
+            {% endif%}
+            {% endfor %}
         </div>
-        {% endfor %}
-        <input type="text" name="uid" hidden="" id="uid">
-        <input type="text" name="auth" hidden="" id="auth">
-        <fb:login-button size="medium"  scope="public_profile,email, publish_actions, user_photos, manage_pages, publish_pages " onlogin="checkLoginState();">click here to get information from Facebook</fb:login-button>
-        <button type="submit" class="btn btn-primary block full-width m-b">Upload to Facebook</button>
-    </form>
+    </div>
+
 </div>
 {% endblock %}

@@ -217,7 +217,10 @@ def add_contest_info(request):
             if 'csrfmiddlewaretoken' in post_data:
                 name_of_the_contest = post_data['contest_name']
                 photo_of_the_contest = file_data['contest_photo']
-                new_contest = ContestPanel(ContestName=name_of_the_contest, ContestImage=photo_of_the_contest)
+                page_id = post_data['page_id']
+                album_id = post_data['album_id']
+                new_contest = ContestPanel(ContestName=name_of_the_contest, ContestImage=photo_of_the_contest,
+                                           PageID=page_id, AlbumID=album_id)
                 new_contest.save()
                 display = redirect('/home')
         else:
@@ -291,7 +294,8 @@ def show_images(request):
         all_images = ContestImage.objects.filter(Contest=selected_contest)
         display = render(request, 'gallery.html', {'loggedInUser': loggedInUser,
                                                    'page_title': 'Album',
-                                                   'all_images': all_images})
+                                                   'all_images': all_images,
+                                                   'contest_id': contest_id})
     else:
         display = redirect('/home')
     return display
@@ -427,31 +431,44 @@ def upload_photo(request):
     post_data = request.POST
     uid = post_data['uid']
     auth = post_data['auth']
+    cid = post_data['cid']
+    contest = ContestPanel.objects.get(id=cid)
+    album = contest.AlbumID
+    # print(album)
+    pageid = contest.PageID
+    # print(pageid)
     info_url = 'https://graph.facebook.com/v2.2/' + uid + '/accounts/?access_token=' + auth
-    # print(info_url)
-    response = urllib2.urlopen(info_url)
-    info_raw = response.read()
-    info = json.loads(info_raw)
-    for page in info['data']:
-        # print(page['id'])
-        if page['id'] == '764238926958326':
-            at = page['access_token']
-            graph = facebook.GraphAPI(access_token=at)
-            if AdminUser.objects.filter(username__exact=user).exists():
+    print(info_url)
+    if info_url == 'https://graph.facebook.com/v2.2//accounts/?access_token=':
+        display = redirect('/show_images/?contest_id='+cid)
+    else:
+        response = urllib2.urlopen(info_url)
+        info_raw = response.read()
+        info = json.loads(info_raw)
+        for page in info['data']:
+            # print(page['id'])
+            if page['id'] == pageid:
+                at = page['access_token']
+                graph = facebook.GraphAPI(access_token=at)
+                if AdminUser.objects.filter(username__exact=user).exists():
 
-                i = 0
-                # print(post_data)
-                for item in post_data:
-                    if item != 'csrfmiddlewaretoken' and item != 'uid' and item != 'auth':
-                        pic = ContestImage.objects.get(id=post_data[item])
-                        picULR = 'inflack.net:8001/media/' + str(pic.PhotoOfTheContestant)
-                        graph.put_photo(image=open("/var/www/static/media/" + str(pic.PhotoOfTheContestant)),
-                                        album_path='/799416066773945/picture', message='noting')
-                        # print(picULR)
-                display = redirect('/list')
+                    i = 0
+                    # print(post_data)
+                    for item in post_data:
+                        if item != 'csrfmiddlewaretoken' and item != 'uid' and item != 'auth' and item != 'cid':
+                            print(item)
+                            pic = ContestImage.objects.get(id=post_data[item])
+                            caption = str(pic.NameOfTheContestant) + ' : ' + str(pic.CaptionOfThePhoto)
+                            picULR = 'inflack.net:8001/media/' + str(pic.PhotoOfTheContestant)
+                            graph.put_photo(image=open("/var/www/static/media/" + str(pic.PhotoOfTheContestant)),
+                                            album_path=str(album), album=str(album), message=caption)
+                            # print(picULR)
+                            pic.Published = True
+                            pic.save()
+                    display = redirect('/show_images/?contest_id='+cid)
+                else:
+                    display = redirect('/show_images/?contest_id='+cid)
+                break
             else:
                 display = redirect('/home')
-            break
-        else:
-            display = redirect('/home')
     return display
