@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div id="fb-root"></div>
+<script>
+    // This is called with the results from from FB.getLoginStatus().
+    function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        // Full docs on the response object can be found in the documentation
+        // for FB.getLoginStatus().
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            testAPI();
+        } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+            document.getElementById('status').innerHTML = 'Please log ' +
+            'into this app.';
+        } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+            document.getElementById('status').innerHTML = 'Please log ' +
+            'into Facebook.';
+        }
+    }
+
+    // This function is called when someone finishes with the Login
+    // Button.  See the onlogin handler attached to it in the sample
+    // code below.
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                $('#auth').val(response.authResponse.accessToken);
+                $('#uid').val(response.authResponse.userID);
+                console.log(response.authResponse.accessToken);
+//                alert(response);
+                for(var propertyName in response.authResponse) {
+                    // propertyName is what you want
+                    // you can get the value like this: myObject[propertyName]
+//                    alert(propertyName);
+                }
+//                console.log(response.name);
+//                alert(response.id)
+            }
+        });
+    }
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '688174571312161',
+            cookie     : true,  // enable cookies to allow the server to access
+                                // the session
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.2' // use version 2.2
+        });
+
+        // Now that we've initialized the JavaScript SDK, we call
+        // FB.getLoginStatus().  This function gets the state of the
+        // person visiting this page and can return one of three states to
+        // the callback you provide.  They can be:
+        //
+        // 1. Logged into your app ('connected')
+        // 2. Logged into Facebook, but not your app ('not_authorized')
+        // 3. Not logged into Facebook and can't tell if they are logged into
+        //    your app or not.
+        //
+        // These three cases are handled in the callback function.
+
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+
+    };
+
+    // Load the SDK asynchronously
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // Here we run a very simple test of the Graph API after login is
+    // successful.  See statusChangeCallback() for when this call is made.
+    function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+//            console.log('Successful login for: ' + response.name);
+            $('#auth').val(response.authResponse.accessToken);
+            $('#uid').val(response.authResponse.userID);
+//            console.log(response.id);
+            //todo heve to make currection
+//            $('#email').val(response.email);
+            //document.getElementById('fblink').innerHTML = response.link;
+        });
+    }
+</script>
+<script>
+    function uploadToAlbum(){
+        FB.api(
+                "/799416066773945/photos",
+                "POST",
+                {
+                    "url": "http://inflack.net:8001/media/images/contestant/Lighthouse.jpg"
+                },
+                function (response) {
+                    if (response && !response.error) {
+                        console.log(response);
+                        /* handle the result */
+                    }
+                    else{
+                        console.log(response.error);
+                    }
+                }
+        );
+    }
+
+
+
+
+
+
+</script>
+<button type="submit" class="btn btn-primary block full-width m-b" onclick="uploadToAlbum()">Ud</button>
+<div class="row">
+    <form action="/upload_photo/" method="post">{% csrf_token %}
+        {% for image in all_images %}
+        <div class="col-md-3 col-lg-3">
+            <input type="checkbox" name="Pic{{image.id}}" value="{{image.id}}">
+            <a href="/media/{{image.PhotoOfTheContestant}}" target="_blank" class="thumbnail">
+                <p><h3>{{image.NameOfTheContestant}}</h3><br>{{image.CaptionOfThePhoto}}</p>
+                <img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" width="304" height="236">
+            </a>
+        </div>
+        {% endfor %}
+        <input type="text" name="uid" hidden="" id="uid">
+        <input type="text" name="auth" hidden="" id="auth">
+        <fb:login-button size="medium"  scope="public_profile,email, publish_actions, user_photos, manage_pages, publish_pages " onlogin="checkLoginState();">click here to get information from Facebook</fb:login-button>
+        <button type="submit" class="btn btn-primary block full-width m-b">Upload to Facebook</button>
+    </form>
+</div>
+{% endblock %}

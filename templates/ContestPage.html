@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static%}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Shajgoj Contest</title>
+    <link rel="icon" href="{% static 'fancypage/favi.ico'%}" type="image/x-icon"/>
+    <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{% static 'bower_components/metisMenu/dist/metisMenu.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'dist/css/sb-admin-2.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!--<script type="text/javascript">-->
+    <!--//<![CDATA[-->
+    <!--try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"a2fc28e3735f3ca6dabde69770b8cff3",petok:"4d9be5d2814e8c4d95daac412bd1a373ec527dfd-1431231175-1800",zone:"easy-development.com",rocket:"0",apps:{"abetterbrowser":{"ie":"7"}}}];CloudFlare.push({"apps":{"ape":"9a38ff4ebed9e00fddade365969d9070"}});!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok3v=7e13c32551/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};-->
+    <!--//]]>-->
+    <!--</script>-->
+    <script src="{% static 'fancypage/jquery.js' %}"></script>
+
+    <link href="{% static 'fancypage/animate.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'fancypage/jquery-ultimate-fancy-form.min.js' %}"></script>
+    <link href="{% static 'fancypage/jquery-ultimate-fancy-form.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fancypage/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'fancypage/bootstrap.min.js' %}"></script>
+    <script src="{% static 'fancypage/bootstrap-filestyle.min.js' %}"></script>
+    <script src="{% static 'fancypage/bootstrap.js' %}"></script>
+    <link href="{% static 'fancypage/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fancypage/custom.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="fb-root"></div>
+<script>
+    // This is called with the results from from FB.getLoginStatus().
+    function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        // Full docs on the response object can be found in the documentation
+        // for FB.getLoginStatus().
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            testAPI();
+        } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+            document.getElementById('status').innerHTML = 'Please log ' +
+            'into this app.';
+        } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+            document.getElementById('status').innerHTML = 'Please log ' +
+            'into Facebook.';
+        }
+    }
+
+    // This function is called when someone finishes with the Login
+    // Button.  See the onlogin handler attached to it in the sample
+    // code below.
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                console.log(response.authResponse.accessToken);
+                alert(response.authResponse.accessToken)
+            }
+        });
+    }
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '688174571312161',
+            cookie     : true,  // enable cookies to allow the server to access
+                                // the session
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.2' // use version 2.2
+        });
+
+        // Now that we've initialized the JavaScript SDK, we call
+        // FB.getLoginStatus().  This function gets the state of the
+        // person visiting this page and can return one of three states to
+        // the callback you provide.  They can be:
+        //
+        // 1. Logged into your app ('connected')
+        // 2. Logged into Facebook, but not your app ('not_authorized')
+        // 3. Not logged into Facebook and can't tell if they are logged into
+        //    your app or not.
+        //
+        // These three cases are handled in the callback function.
+
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+
+    };
+
+    // Load the SDK asynchronously
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    // Here we run a very simple test of the Graph API after login is
+    // successful.  See statusChangeCallback() for when this call is made.
+    function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+//            console.log('Successful login for: ' + response.name);
+            $('#fblink').val(response.link);
+            $('#name').val(response.name);
+//            $('#email').val(response.email);
+            //document.getElementById('fblink').innerHTML = response.link;
+        });
+    }
+</script>
+<div class="container-fluid">
+    <h1>Name of the contest</h1>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-md-offset-1 col-lg-offset-1">
+            <img src="{% static 'fancypage/icon.png' %}">
+            <!--<div class="clearfix"></div>-->
+        </div>
+        {% if contest_running%}
+        <div class="col-lg-6 col-md-6 col-correction">
+            <div class="form-container">
+                <form role="form" action="/get_info/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name"  name="NameOfTheContestant" placeholder="Enter Your Name" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="EmailOfTheContestant" placeholder="Enter Your Email Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="number" class="form-control" id="phone" name="PhoneOfTheContestant" placeholder="Enter Your Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <label for="fblink">Facebook Url</label>
+                        <input type="text" class="form-control" id="fblink" name="FBLinkOfTheContestant" placeholder="Enter Your Facebook Url">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="profession">Profession</label>
+                        <input class="form-control" list="profession_suggestion" placeholder="What Are You?" name="ProfessionOfTheContestant" id="profession" type="text" autocomplete="off" required="">
+                        <datalist id="profession_suggestion">
+                            <option value="Student" />
+                            <option value="House Wife" />
+                            <option value="Service Holder" />
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label for="institute">Institute</label>
+                        <input class="form-control" list="institute_suggestion" placeholder="Where Do You Work?" name="InstituteOfTheContestant" id="institute" type="text" autocomplete="off" required="">
+                        <datalist id="institute_suggestion">
+                            <option value="Home" />
+                            <option value="Dhaka University" />
+                            <option value="BRAC Bank" />
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">Your Photo</label>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-7">
+                                <input type="file" id="exampleInputFile" class="filestyle" data-buttonText="Upload" name="PhotoOfTheContestant" accept="image/*"  required="" onchange="loadFile(event)">
+                                <textarea class="form-control" id="caption"  name="CaptionOfThePhoto" placeholder="Say Something About This Photo" required=""></textarea>
+                            </div>
+                            <div class="col-lg-5 col-md-5">
+                                <img id="output" style="border: 1px solid #000; max-width:200px; max-height:200px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right">
+                        <fb:login-button size="medium"  scope="public_profile,email,publish_actions " onlogin="checkLoginState();">click here to get information from Facebook</fb:login-button>
+                        <button type="submit" class="btn btn-info" id="btn-submit-from">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-lg-6 col-md-6 col-correction">
+            <img src="{% static 'fancypage/no contest.jpg' %}">
+        </div>
+        {% endif %}
+    </div>
+</div>
+<script>
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+<script>
+
+</script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="{% static 'bower_components/metisMenu/dist/metisMenu.min.js' %}"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="{% static 'bower_components/raphael/raphael-min.js' %}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{% static 'dist/js/sb-admin-2.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>
+
+
