@@ -71,7 +71,7 @@ def logout_now(request):
 
 @login_required(login_url='/admin/')
 def profile(request):
-    page_title = '|Profile|'
+    page_title = 'Profile'
     user = request.session['user']
     admin_user = AdminUser.objects.get(username__exact=user)
     if AdminUser.objects.filter(username__exact=user).exists() and admin_user.Active:
@@ -107,7 +107,7 @@ def profile(request):
 
 @login_required(login_url='/admin/')
 def change_password(request):
-    page_title = '|Change Password|'
+    page_title = 'Change Password'
     user = request.session['user']
     post_data = request.POST
     wrong = False
@@ -163,7 +163,7 @@ def admins_list(request):
             all_admin_users = AdminUser.objects.all()
             display = render(request, 'admin_list.html',
                              {'loggedInUser': loggedInUser,
-                              'page_title': '|List Of Admins|',
+                              'page_title': 'List Of Admins',
                               'all_admin_users': all_admin_users})
         else:
             logout(request)
@@ -319,6 +319,7 @@ def add_admin(request):
             if admin_admin:
                 display = render(request, 'add_admin.html', {'admin': admin,
                                                              'loggedInUser': loggedInUser,
+                                                             'page_title': 'Add An Admin',
                                                              'admin_admin': admin_admin})
             else:
                 display = render(request, 'access_denied.html', {'admin': admin,
@@ -438,6 +439,7 @@ def upload_photo(request):
     pageid = contest.PageID
     # print(pageid)
     info_url = 'https://graph.facebook.com/v2.2/' + uid + '/accounts/?access_token=' + auth
+    # info_url = 'https://graph.facebook.com/v2.2/me/accounts/?access_token=' + auth
     print(info_url)
     if info_url == 'https://graph.facebook.com/v2.2//accounts/?access_token=':
         display = redirect('/show_images/?contest_id='+cid)
@@ -465,10 +467,5 @@ def upload_photo(request):
                             # print(picULR)
                             pic.Published = True
                             pic.save()
-                    display = redirect('/show_images/?contest_id='+cid)
-                else:
-                    display = redirect('/show_images/?contest_id='+cid)
-                break
-            else:
-                display = redirect('/home')
+        display = redirect('/show_images/?contest_id='+cid)
     return display

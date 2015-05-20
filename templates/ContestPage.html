@@ -83,7 +83,7 @@
         FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
                 console.log(response.authResponse.accessToken);
-                alert(response.authResponse.accessToken)
+//                alert(response.authResponse.accessToken)
             }
         });
     }
@@ -138,65 +138,71 @@
     }
 </script>
 <div class="container-fluid">
-    <h1>Name of the contest</h1>
     <div class="row">
-        <div class="col-lg-3 col-md-3 col-md-offset-1 col-lg-offset-1">
-            <img src="{% static 'fancypage/icon.png' %}">
+        <div class="col-lg-3 col-md-3 col-xs-4">
+            <img class="img-responsive" src="{% static 'fancypage/icon.png' %}">
             <!--<div class="clearfix"></div>-->
         </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float: right; margin-bottom: 20px;">
+            <img class="img-responsive" src="/media/{{image}}" style="max-height: 300px; margin: 0 auto;">
+        </div>
+        <!--todo if want to add contest banner, have to make changes here-->
+
+    </div>
+    <div class="row">
         {% if contest_running%}
         <div class="col-lg-6 col-md-6 col-correction">
             <div class="form-container">
+                <div style="text-align: right"><fb:login-button size="large"  scope="public_profile,email,publish_actions " onlogin="checkLoginState();">Fill your form via FB</fb:login-button></div>
                 <form role="form" action="/get_info/" method="POST" enctype="multipart/form-data">{% csrf_token %}
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Name<sup>*</sup></label>
                         <input type="text" class="form-control" id="name"  name="NameOfTheContestant" placeholder="Enter Your Name" required="">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email Address</label>
+                        <label for="email">Email Address<sup>*</sup></label>
                         <input type="email" class="form-control" id="email" name="EmailOfTheContestant" placeholder="Enter Your Email Address">
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
                         <input type="number" class="form-control" id="phone" name="PhoneOfTheContestant" placeholder="Enter Your Phone Number">
                     </div>
-                    <div class="form-group">
-                        <label for="fblink">Facebook Url</label>
-                        <input type="text" class="form-control" id="fblink" name="FBLinkOfTheContestant" placeholder="Enter Your Facebook Url">
+                    <!--<div class="form-group" >-->
+                    <!--<label for="fblink">Facebook Url</label>-->
+                    <input type="text" id="fblink" name="FBLinkOfTheContestant" placeholder="Enter Your Facebook Url" hidden="">
 
-                    </div>
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<label for="profession">Profession</label>-->
+                    <input name="ProfessionOfTheContestant" id="profession" hidden="" type="text" required="" value="not given">
+
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<label for="institute">Institute</label>-->
+                    <input name="InstituteOfTheContestant" id="institute" hidden="" type="text" required="" value="not given">
+                    <!--<datalist id="institute_suggestion">-->
+                    <!--<option value="Home" />-->
+                    <!--<option value="Dhaka University" />-->
+                    <!--<option value="BRAC Bank" />-->
+                    <!--</datalist>-->
+                    <!--</div>-->
                     <div class="form-group">
-                        <label for="profession">Profession</label>
-                        <input class="form-control" list="profession_suggestion" placeholder="What Are You?" name="ProfessionOfTheContestant" id="profession" type="text" autocomplete="off" required="">
-                        <datalist id="profession_suggestion">
-                            <option value="Student" />
-                            <option value="House Wife" />
-                            <option value="Service Holder" />
-                        </datalist>
-                    </div>
-                    <div class="form-group">
-                        <label for="institute">Institute</label>
-                        <input class="form-control" list="institute_suggestion" placeholder="Where Do You Work?" name="InstituteOfTheContestant" id="institute" type="text" autocomplete="off" required="">
-                        <datalist id="institute_suggestion">
-                            <option value="Home" />
-                            <option value="Dhaka University" />
-                            <option value="BRAC Bank" />
-                        </datalist>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputFile">Your Photo</label>
+                        <label for="exampleInputFile">Your Photo<sup>*</sup></label>
                         <div class="row">
                             <div class="col-lg-7 col-md-7">
                                 <input type="file" id="exampleInputFile" class="filestyle" data-buttonText="Upload" name="PhotoOfTheContestant" accept="image/*"  required="" onchange="loadFile(event)">
+                                <br>Tell us something about your photo<sup>*</sup><br>
                                 <textarea class="form-control" id="caption"  name="CaptionOfThePhoto" placeholder="Say Something About This Photo" required=""></textarea>
                             </div>
                             <div class="col-lg-5 col-md-5">
-                                <img id="output" style="border: 1px solid #000; max-width:200px; max-height:200px;">
+                                <img id="output" style="max-width:200px; max-height:200px;">
                             </div>
                         </div>
+                    </div><div style="text-align: left">
+                        * Marked fields are mandatory.<br>
+                        * You must fill either email address or phone number field if you are not filling the form via Facebook.
                     </div>
                     <div style="text-align: right">
-                        <fb:login-button size="medium"  scope="public_profile,email,publish_actions " onlogin="checkLoginState();">click here to get information from Facebook</fb:login-button>
                         <button type="submit" class="btn btn-info" id="btn-submit-from">Submit</button>
                     </div>
                 </form>

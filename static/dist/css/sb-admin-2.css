@@ -425,3 +425,8 @@ table.dataTable thead .sorting:after {
 .nav-left .active{
     border-right: none !important;
 }
+
+.row-correction{
+    margin-left: 0px;
+    margin-right: 0px;
+}

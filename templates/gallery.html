@@ -141,7 +141,7 @@
 
                     <a href="/media/{{image.PhotoOfTheContestant}}" target="_blank" class="thumbnail">
                         <p><h3>{{image.NameOfTheContestant}}</h3><br>{{image.CaptionOfThePhoto}}</p>
-                        <img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" width="304" height="236">
+                        <img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" style="height: 240px">
                         <input type="checkbox" name="Pic{{image.id}}" value="{{image.id}}">
                     </a>
                 </div>
@@ -155,7 +155,8 @@
                 <!--</div>-->
                 <!--<div class="row">-->
                 <br>
-                <fb:login-button size="medium"  scope="public_profile,email, publish_actions, user_photos, manage_pages, publish_pages " onlogin="checkLoginState();">sign in to Facebook before upload</fb:login-button>
+                <fb:login-button size="large"  scope="public_profile,email, publish_actions, user_photos, manage_pages, publish_pages " onlogin="checkLoginState();">Authenticate to FB before upload</fb:login-button>
+                <!--<fb:login-button size="medium"  scope="public_profile,email, user_photos, manage_pages" onlogin="checkLoginState();">sign in to Facebook before upload</fb:login-button>-->
                 <button type="submit" class="btn btn-primary block full-width m-b">Upload to Facebook</button>
             </div>
             <!--</div>-->
@@ -177,7 +178,7 @@
             <div class="col-md-3 col-lg-3 col-sm-6">
                 <a href="/media/{{image.PhotoOfTheContestant}}" target="_blank" class="thumbnail">
                     <p><h3>{{image.NameOfTheContestant}}</h3><br>{{image.CaptionOfThePhoto}}</p>
-                    <img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" width="304" height="236">
+                    <img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" style="height: 240px">
                 </a>
             </div>
             {% endif%}

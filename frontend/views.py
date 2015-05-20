@@ -7,8 +7,17 @@ from contest_panel.models import ContestImage, ContestPanel
 @csrf_exempt
 def contest_page(request):
     contest_running = ContestPanel.objects.filter(Active=True).exists()
-
-    return render(request, 'ContestPage.html', {'contest_running': contest_running})
+    if contest_running:
+        contest = ContestPanel.objects.get(Active=True)
+        image = contest.ContestImage
+        print(image)
+    res = render(request, 'ContestPage.html', {'contest_running': contest_running,
+                                               'image': image})
+    res['Access-Control-Allow-Origin'] = "*"
+    res['Access-Control-Allow-Headers'] = "Origin, X-Requested-With, Content-Type, Accept"
+    res['Access-Control-Allow-Methods'] = "PUT, GET, POST, DELETE, OPTIONS"
+    res['X-Frame-Options'] = "ALLOW"
+    return res
 
 
 @csrf_exempt
@@ -35,8 +44,9 @@ def get_info(request):
     new_contest_image.save()
     running_contest.NumberOfPhotos += 1
     running_contest.save()
-    return redirect('/')
-
-
-
-
+    res = render(request, 'thanks.html')
+    res['Access-Control-Allow-Origin'] = "*"
+    res['Access-Control-Allow-Headers'] = "Origin, X-Requested-With, Content-Type, Accept"
+    res['Access-Control-Allow-Methods'] = "PUT, GET, POST, DELETE, OPTIONS"
+    res['X-Frame-Options'] = "ALLOW"
+    return res

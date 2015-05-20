@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static%}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Shajgoj Contest</title>
+    <link rel="icon" href="{% static 'fancypage/favi.ico'%}" type="image/x-icon"/>
+    <link href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{% static 'bower_components/metisMenu/dist/metisMenu.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'dist/css/sb-admin-2.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!--<script type="text/javascript">-->
+    <!--//<![CDATA[-->
+    <!--try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"a2fc28e3735f3ca6dabde69770b8cff3",petok:"4d9be5d2814e8c4d95daac412bd1a373ec527dfd-1431231175-1800",zone:"easy-development.com",rocket:"0",apps:{"abetterbrowser":{"ie":"7"}}}];CloudFlare.push({"apps":{"ape":"9a38ff4ebed9e00fddade365969d9070"}});!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok3v=7e13c32551/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};-->
+    <!--//]]>-->
+    <!--</script>-->
+    <script src="{% static 'fancypage/jquery.js' %}"></script>
+
+    <link href="{% static 'fancypage/animate.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'fancypage/jquery-ultimate-fancy-form.min.js' %}"></script>
+    <link href="{% static 'fancypage/jquery-ultimate-fancy-form.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fancypage/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'fancypage/bootstrap.min.js' %}"></script>
+    <script src="{% static 'fancypage/bootstrap-filestyle.min.js' %}"></script>
+    <script src="{% static 'fancypage/bootstrap.js' %}"></script>
+    <link href="{% static 'fancypage/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fancypage/custom.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script type="text/javascript">
+    var count = 3;
+    var redirect = "http://inflack.net:8001";
+
+    function countDown(){
+        var timer = document.getElementById("timer");
+        if(count > 0){
+            count--;
+            timer.innerHTML = "This page will redirect in "+count+" seconds.";
+            setTimeout("countDown()", 1000);
+        }else{
+            window.location.href = redirect;
+        }
+    }
+</script>
+<div class="col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
+    <div class="alert alert-success" role="alert">
+        <p>Thanks for your submission... Stay with us.</p>
+        <br>
+<span id="timer">
+<script type="text/javascript">countDown();</script>
+</span>
+    </div>
+</div>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="{% static 'bower_components/metisMenu/dist/metisMenu.min.js' %}"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="{% static 'bower_components/raphael/raphael-min.js' %}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{% static 'dist/js/sb-admin-2.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>
