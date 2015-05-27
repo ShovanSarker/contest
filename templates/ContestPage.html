@@ -14,6 +14,7 @@
 
     <!-- MetisMenu CSS -->
     <link href="{% static 'bower_components/metisMenu/dist/metisMenu.min.css' %}" rel="stylesheet">
+    <link href="{% static 'buttons/facebook-btn.css' %}" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="{% static 'dist/css/sb-admin-2.css' %}" rel="stylesheet">
@@ -80,12 +81,12 @@
         FB.getLoginStatus(function(response) {
             statusChangeCallback(response);
         });
-        FB.getLoginStatus(function(response) {
+        /*FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
                 console.log(response.authResponse.accessToken);
 //                alert(response.authResponse.accessToken)
             }
-        });
+        });*/
     }
 
     window.fbAsyncInit = function() {
@@ -137,6 +138,17 @@
         });
     }
 </script>
+<script>
+    //your fb login function
+    function fblogin() {
+        FB.login(function(response) {
+            checkLoginState();
+        }, {scope:'public_profile, email, publish_actions'});
+        $('#fblink').val(response.link);
+        $('#name').val(response.name);
+
+    }
+</script>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-3 col-md-3 col-xs-4">
@@ -153,7 +165,11 @@
         {% if contest_running%}
         <div class="col-lg-6 col-md-6 col-correction">
             <div class="form-container">
-                <div style="text-align: right"><fb:login-button size="large"  scope="public_profile,email,publish_actions " onlogin="checkLoginState();">Fill your form via FB</fb:login-button></div>
+                <div style="text-align: right">
+                    <!--<fb:login-button size="large"  scope="public_profile,email,publish_actions " onlogin="checkLoginState();">Fill your form via FB</fb:login-button>-->
+                    <!--<a href="#" onclick="fblogin();return false;">GG</a>-->
+                    <a href="#" onclick="fblogin();return false;"><div class="new-fb-btn new-fb-1 new-fb-default-anim"><div class="new-fb-1-1"><div class="new-fb-1-1-1" style="padding-right: 5px;padding-left: 0px;">Fill your form via </div></div></div></a>
+                </div>
                 <form role="form" action="/get_info/" method="POST" enctype="multipart/form-data">{% csrf_token %}
                     <div class="form-group">
                         <label for="name">Name<sup>*</sup></label>
@@ -196,6 +212,7 @@
                             </div>
                             <div class="col-lg-5 col-md-5">
                                 <img id="output" style="max-width:200px; max-height:200px;">
+                                <!--<img id="output" style="max-width:200px; max-height:200px;">-->
                             </div>
                         </div>
                     </div><div style="text-align: left">

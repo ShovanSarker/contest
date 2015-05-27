@@ -39,15 +39,16 @@
                                                autofocus required="">
                                     </div>
                                     <label for="exampleInputFile">Your Photo</label>
+                                    <div class="form-group input-group">
                                     <div class="row">
                                         <div class="col-lg-7 col-md-7">
                                             <input type="file" id="exampleInputFile" class="filestyle" data-buttonText="Upload" namelist="contest_photo" name="contest_photo" accept="image/*"  required="" onchange="loadFile(event)"  formmethod="post">
                                             <!--<textarea class="form-control" id="caption"  name="caption" placeholder="Say Something About This Photo" required=""></textarea>-->
                                         </div>
                                         <div class="col-lg-5 col-md-5">
-                                            <img id="output" style="border: 1px solid #000; max-width:200px; max-height:200px;">
+                                            <img id="output" style="max-width:200px; max-height:200px;">
                                         </div>
-                                    </div>
+                                    </div></div>
                                     <!-- Change this to a button or input when using this as a form -->
                                     <!--{#                            <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>#}-->
                                     <button type="submit" class="btn btn-primary block full-width m-b">Add</button>
