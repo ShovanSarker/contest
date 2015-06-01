@@ -27,7 +27,7 @@
                                 <td>{{contest.ContestName}}</td>
                                 <td>{% if contest.Active %} Running {% else %} Stopped {% endif%}</td>
                                 <td>{{contest.DateAdded}}</td>
-                                <td>{% if contest.Active %} <a href="/change_contest_status/?id={{contest.id}}" class="btn btn-danger" role="button">Stop</a> {% else %} <a href="/change_contest_status/?id={{contest.id}}" class="btn btn-success" role="button">Start</a> {% endif%}</td>
+                                <td>{% if contest.Active %} <a href="/shajgoj/change_contest_status/?id={{contest.id}}" class="btn btn-danger" role="button">Stop</a> {% else %} <a href="/shajgoj/change_contest_status/?id={{contest.id}}" class="btn btn-success" role="button">Start</a> {% endif%}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

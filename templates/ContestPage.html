@@ -48,7 +48,7 @@
     <link href="{% static 'fancypage/bootstrap.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fancypage/custom.css' %}" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body style="background-color: #fff;">
 <div id="fb-root"></div>
 <script>
     // This is called with the results from from FB.getLoginStatus().
@@ -65,12 +65,12 @@
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
             document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
+                    'into this app.';
         } else {
             // The person is not logged into Facebook, so we're not sure if
             // they are logged into this app or not.
             document.getElementById('status').innerHTML = 'Please log ' +
-            'into Facebook.';
+                    'into Facebook.';
         }
     }
 
@@ -82,11 +82,11 @@
             statusChangeCallback(response);
         });
         /*FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-                console.log(response.authResponse.accessToken);
-//                alert(response.authResponse.accessToken)
-            }
-        });*/
+         if (response.status === 'connected') {
+         console.log(response.authResponse.accessToken);
+         //                alert(response.authResponse.accessToken)
+         }
+         });*/
     }
 
     window.fbAsyncInit = function() {
@@ -150,15 +150,12 @@
     }
 </script>
 <div class="container-fluid">
+<!--<div class="container-fluid" style="background-image: url('/static/fancypage/bgg.jpg')">-->
     <div class="row">
-        <div class="col-lg-3 col-md-3 col-xs-4">
+        <div class="col-lg-3 col-md-3 col-xs-4" style="text-align: center; margin: 0 auto">
             <img class="img-responsive" src="{% static 'fancypage/icon.png' %}">
             <!--<div class="clearfix"></div>-->
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="float: right; margin-bottom: 20px;">
-            <img class="img-responsive" src="/media/{{image}}" style="max-height: 300px; margin: 0 auto;">
-        </div>
-        <!--todo if want to add contest banner, have to make changes here-->
 
     </div>
     <div class="row">
@@ -170,7 +167,7 @@
                     <!--<a href="#" onclick="fblogin();return false;">GG</a>-->
                     <a href="#" onclick="fblogin();return false;"><div class="new-fb-btn new-fb-1 new-fb-default-anim"><div class="new-fb-1-1"><div class="new-fb-1-1-1" style="padding-right: 5px;padding-left: 0px;">Fill your form via </div></div></div></a>
                 </div>
-                <form role="form" action="/get_info/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                <form role="form" action="/shajgoj/get_info/" method="POST" enctype="multipart/form-data">{% csrf_token %}
                     <div class="form-group">
                         <label for="name">Name<sup>*</sup></label>
                         <input type="text" class="form-control" id="name"  name="NameOfTheContestant" placeholder="Enter Your Name" required="">
@@ -207,8 +204,8 @@
                         <div class="row">
                             <div class="col-lg-7 col-md-7">
                                 <input type="file" id="exampleInputFile" class="filestyle" data-buttonText="Upload" name="PhotoOfTheContestant" accept="image/*"  required="" onchange="loadFile(event)">
-                                <br>Tell us something about your photo<sup>*</sup><br>
-                                <textarea class="form-control" id="caption"  name="CaptionOfThePhoto" placeholder="Say Something About This Photo" required=""></textarea>
+                                <!--<br>Tell us something about your photo<sup>*</sup><br>-->
+                                <input id="caption"  name="CaptionOfThePhoto" required="" value="uploaded" hidden="">
                             </div>
                             <div class="col-lg-5 col-md-5">
                                 <img id="output" style="max-width:200px; max-height:200px;">

@@ -28,7 +28,7 @@ def login_auth(request):
                 if user.is_superuser:
                     res = redirect('/superadmin')
                 else:
-                    res = redirect('/home')
+                    res = redirect('/shajgoj/home')
             else:
                 res = render(request, 'admin_login.html',
                              {'wrong': True,
@@ -46,7 +46,7 @@ def login_auth(request):
     return res
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def home(request):
     page_title = 'Home'
     user = request.session['user']
@@ -66,10 +66,10 @@ def home(request):
 
 def logout_now(request):
     logout(request)
-    return redirect('/admin')
+    return redirect('/shajgoj/admin')
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def profile(request):
     page_title = 'Profile'
     user = request.session['user']
@@ -105,7 +105,7 @@ def profile(request):
     return display
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def change_password(request):
     page_title = 'Change Password'
     user = request.session['user']
@@ -148,7 +148,7 @@ def change_password(request):
     return display
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def admins_list(request):
     user = request.session['user']
     # if admin
@@ -172,11 +172,11 @@ def admins_list(request):
                               'text': 'You are not authorized to login.'
                                       ' Please contact administrator for more details'})
     else:
-        display = redirect('/')
+        display = redirect('/shajgoj/')
     return display
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def add_new_contest(request):
     user = request.session['user']
     if AdminUser.objects.filter(username__exact=user).exists():
@@ -197,12 +197,12 @@ def add_new_contest(request):
                               'text': 'You are not authorized to login.'
                                       ' Please contact administrator for more details'})
     else:
-        display = redirect('/')
+        display = redirect('/shajgoj/')
     return display
 
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def add_contest_info(request):
     user = request.session['user']
     post_data = request.POST
@@ -222,7 +222,7 @@ def add_contest_info(request):
                 new_contest = ContestPanel(ContestName=name_of_the_contest, ContestImage=photo_of_the_contest,
                                            PageID=page_id, AlbumID=album_id)
                 new_contest.save()
-                display = redirect('/home')
+                display = redirect('/shajgoj/home')
         else:
             logout(request)
             display = render(request, 'admin_login.html',
@@ -230,11 +230,11 @@ def add_contest_info(request):
                               'text': 'You are not authorized to login.'
                                       ' Please contact administrator for more details'})
     else:
-        display = redirect('/home')
+        display = redirect('/shajgoj/home')
     return display
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def contest_list(request):
     user = request.session['user']
 
@@ -256,11 +256,11 @@ def contest_list(request):
                               'text': 'You are not authorized to login.'
                                       ' Please contact administrator for more details'})
     else:
-        display = redirect('/home')
+        display = redirect('/shajgoj/home')
     return display
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def change_contest_status(request):
     user = request.session['user']
     if AdminUser.objects.filter(username__exact=user).exists():
@@ -276,13 +276,13 @@ def change_contest_status(request):
                 every_contest.save()
             selected_contest.Active = True
         selected_contest.save()
-        display = redirect('/contest_list')
+        display = redirect('/shajgoj/contest_list')
     else:
-        display = redirect('/home')
+        display = redirect('/shajgoj/home')
     return display
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def show_images(request):
     user = request.session['user']
     if AdminUser.objects.filter(username__exact=user).exists():
@@ -297,12 +297,12 @@ def show_images(request):
                                                    'all_images': all_images,
                                                    'contest_id': contest_id})
     else:
-        display = redirect('/home')
+        display = redirect('/shajgoj/home')
     return display
 
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def add_admin(request):
     user = request.session['user']
     if not AdminUser.objects.exists():
@@ -331,11 +331,11 @@ def add_admin(request):
                              {'wrong': True,
                               'text': 'You are not authorized to login. Please contact administrator for more details'})
     else:
-        display = redirect('/home')
+        display = redirect('/shajgoj/home')
     return display
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='/shajgoj/login/')
 def add_admin_info(request):
     user = request.session['user']
     post_data = request.POST
@@ -397,13 +397,13 @@ def add_admin_info(request):
                                   'text': 'You are not authorized to login.'
                                           ' Please contact administrator for more details'})
         else:
-            display = redirect('/')
+            display = redirect('/shajgoj/')
     else:
-        display = redirect('/add_admin/')
+        display = redirect('/shajgoj/add_admin/')
     return display
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def change_admin_status(request):
     user = request.session['user']
     if AdminUser.objects.filter(username__exact=user).exists():
@@ -415,9 +415,9 @@ def change_admin_status(request):
         else:
             selected_admin.Active = True
         selected_admin.save()
-        display = redirect('/home')
+        display = redirect('/shajgoj/list')
     else:
-        display = redirect('/home')
+        display = redirect('/shajgoj/list')
     return display
 
 
@@ -426,7 +426,7 @@ import urllib2
 import json
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='/shajgoj/admin/')
 def upload_photo(request):
     user = request.session['user']
     post_data = request.POST
@@ -467,5 +467,5 @@ def upload_photo(request):
                             # print(picULR)
                             pic.Published = True
                             pic.save()
-        display = redirect('/show_images/?contest_id='+cid)
+        display = redirect('/shajgoj/show_images/?contest_id='+cid)
     return display

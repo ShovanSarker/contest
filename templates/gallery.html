@@ -17,12 +17,12 @@
         } else if (response.status === 'not_authorized') {
             // The person is logged into Facebook, but not your app.
             document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
+                    'into this app.';
         } else {
             // The person is not logged into Facebook, so we're not sure if
             // they are logged into this app or not.
             document.getElementById('status').innerHTML = 'Please log ' +
-            'into Facebook.';
+                    'into Facebook.';
         }
     }
 
@@ -147,13 +147,18 @@
                 <!--<div class="row">-->
                 <div class="col-md-3 col-lg-3 col-sm-6">
 
-                    <a href="/media/{{image.PhotoOfTheContestant}}"  target="_blank" class="thumbnail" data-toggle="tooltip" data-placement="left" title="{{image.CaptionOfThePhoto}}"  >
+                    <!--<a href="/media/{{image.PhotoOfTheContestant}}"  target="_blank" class="thumbnail" data-toggle="tooltip" data-placement="left" title="{{image.CaptionOfThePhoto}}"  >-->
+                    <div  class="panel panel-default" style="height: 335px" >
                         <!--<a href="/media/{{image.PhotoOfTheContestant}}" target="_blank" class="thumbnail">-->
-                        <p><h3>{{image.NameOfTheContestant}}</h3></p>
-                        <div col-sm-12 col-md-12 col-bg-12 ><img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" style="max-height: 240px; max-width: 240px;min-height: 240px"></div>
-                        <!--<img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" style="height: 240px">-->
-                        <input type="checkbox" name="Pic{{image.id}}" value="{{image.id}}">
-                    </a>
+                        <div class="panel-heading">{{image.NameOfTheContestant}}</div>
+                        <label for="Pic{{image.id}}">
+                            <div class="panel-body">
+                                <div style="text-align: center" ><img src="/media/{{image.PhotoOfTheContestant}}" class="img-responsive" alt="{{image.NameOfTheContestant}}" style="max-height: 240px; max-width: 220px;min-height: 240px;margin: 0 auto"></div>
+                                <!--<img src="/media/{{image.PhotoOfTheContestant}}" class="img-thumbnail" alt="{{image.NameOfTheContestant}}" style="height: 240px">-->
+                                <input type="checkbox" name="Pic{{image.id}}" id="Pic{{image.id}}" value="{{image.id}}">
+                            </div></label>
+                        <!--</a>-->
+                    </div>
                 </div>
                 {% endif %}
                 {% endfor %}
@@ -166,7 +171,7 @@
                 <!--<div class="row">-->
                 <br>
                 <!--<fb:login-button size="large"  scope="public_profile,email, publish_actions, user_photos, manage_pages, publish_pages " onlogin="checkLoginState();">Authenticate to FB before upload</fb:login-button>-->
-                <a href="#" onclick="fblogin();return false;"><div class="new-fb-btn new-fb-1 new-fb-default-anim"><div class="new-fb-1-1"><div class="new-fb-1-1-1" style="padding-right: 5px;padding-left: 0px;">Fill your form via </div></div></div></a>
+                <a href="#" onclick="fblogin();return false;"><div class="new-fb-btn new-fb-1 new-fb-default-anim"><div class="new-fb-1-1"><div class="new-fb-1-1-1" style="padding-right: 5px;padding-left: 0px;">Authenticate to FB before upload </div></div></div></a>
                 <!--<fb:login-button size="medium"  scope="public_profile,email, user_photos, manage_pages" onlogin="checkLoginState();">sign in to Facebook before upload</fb:login-button>-->
                 <button type="submit" class="btn btn-primary block full-width m-b">Upload to Facebook</button>
             </div>

@@ -33,7 +33,7 @@
                         <td>{{admins.username}}</td>
                         <td>{% if admins.Active %}Active{% else %} Inactive{% endif %}</td>
                         <td>{{admins.DateAdded}}</td>
-                        <td>{% if admins.Active %} <a href="/change_admin_status/?id={{admins.id}}" class="btn btn-danger" role="button">Deactivate</a> {% else %} <a href="/change_admin_status/?id={{admins.id}}" class="btn btn-success" role="button">Activate</a> {% endif%}</td>
+                        <td>{% if admins.Active %} <a href="/shajgoj/change_admin_status/?id={{admins.id}}" class="btn btn-danger" role="button">Deactivate</a> {% else %} <a href="/shajgoj/change_admin_status/?id={{admins.id}}" class="btn btn-success" role="button">Activate</a> {% endif%}</td>
                     </tr>
                     {% endfor %}
                     </tbody>
